@@ -19,7 +19,35 @@
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n\n\n\nclass App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {\n  render() {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"Hi\", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      onClick: () => this.test()\n    }, \"Test\"));\n  }\n\n  async test() {\n    const res = await fetch('/search?s=huawei');\n    const json = await res.json();\n    console.log(json);\n  }\n\n}\n\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(App, null), document.querySelector('#root'));\n\n//# sourceURL=webpack://PhoneComparer/./src/App.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var _PhoneSpecs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PhoneSpecs */ \"./src/PhoneSpecs.js\");\n\n\n\n\nclass App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      phoneA: {},\n      phoneB: {}\n    };\n  }\n\n  async componentDidMount() {\n    const resA = await fetch(`/phone?url=${encodeURIComponent('https://www.gsmarena.com/oneplus_8t-10420.php')}`);\n    const jsonA = await resA.json();\n    console.log(jsonA);\n    const resB = await fetch(`/phone?url=${encodeURIComponent('https://www.gsmarena.com/google_pixel_5-10386.php')}`);\n    const jsonB = await resB.json();\n    console.log(jsonB);\n    this.setState({\n      phoneA: jsonA,\n      phoneB: jsonB\n    });\n  }\n\n  render() {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      className: \"grid\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      className: \"col\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PhoneSpecs__WEBPACK_IMPORTED_MODULE_2__.default, {\n      phone: this.state.phoneA\n    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      className: \"col\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PhoneSpecs__WEBPACK_IMPORTED_MODULE_2__.default, {\n      phone: this.state.phoneB\n    })));\n  }\n\n}\n\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(App, null), document.querySelector('#root'));\n\n//# sourceURL=webpack://PhoneComparer/./src/App.js?");
+
+/***/ }),
+
+/***/ "./src/PhoneSpecs.js":
+/*!***************************!*\
+  !*** ./src/PhoneSpecs.js ***!
+  \***************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => /* binding */ PhoneSpecs\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _SpecSection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SpecSection */ \"./src/SpecSection.js\");\n\n\nclass PhoneSpecs extends react__WEBPACK_IMPORTED_MODULE_0__.Component {\n  render() {\n    const includedSections = { ...this.props.phone\n    };\n    delete includedSections['Name'];\n    delete includedSections['Photo'];\n    const sections = Object.keys(includedSections).map(key => {\n      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpecSection__WEBPACK_IMPORTED_MODULE_1__.default, {\n        title: key,\n        specs: this.props.phone[key],\n        key: key\n      });\n    });\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      className: \"phone\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"span\", {\n      className: \"phone__name\"\n    }, this.props.phone['Name']), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n      src: this.props.phone['Photo'],\n      alt: \"Photo of the phone\",\n      className: \"phone__photo\"\n    }), sections);\n  }\n\n}\n\n//# sourceURL=webpack://PhoneComparer/./src/PhoneSpecs.js?");
+
+/***/ }),
+
+/***/ "./src/SpecSection.js":
+/*!****************************!*\
+  !*** ./src/SpecSection.js ***!
+  \****************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => /* binding */ SpecSection\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nclass SpecSection extends react__WEBPACK_IMPORTED_MODULE_0__.Component {\n  render() {\n    let specs;\n\n    if (typeof this.props.specs !== 'object') {\n      specs = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"span\", {\n        className: \"specs__spec\"\n      }, this.props.specs);\n    } else {\n      specs = Object.keys(this.props.specs).map(key => {\n        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"span\", {\n          key: `${key}__specs`,\n          className: \"specs__spec\"\n        }, key, \": \", this.props.specs[key]);\n      });\n    }\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      className: \"specs\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"span\", {\n      className: \"specs__title\"\n    }, this.props.title), specs);\n  }\n\n}\n\n//# sourceURL=webpack://PhoneComparer/./src/SpecSection.js?");
 
 /***/ }),
 
@@ -312,6 +340,23 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports

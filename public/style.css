@@ -4,3 +4,50 @@
     margin: 0;
     font-family: sans-serif;
 }
+
+html, body, #root, .grid {
+    height: 100%;
+}
+
+.grid {
+    padding: 64px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.col {
+    padding: 0 64px;
+}
+
+.col:first-child {
+    margin-bottom: 64px;
+    border-right: 1px solid grey;
+}
+
+.phone__name {
+    margin-bottom: 16px;
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.phone__photo {
+    margin-bottom: 32px;
+}
+
+.specs {
+    margin-bottom: 32px;
+}
+
+.specs__title {
+    margin-bottom: 16px;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.specs__spec {
+    display: block;
+    color: grey;
+    font-size: 18px;
+}

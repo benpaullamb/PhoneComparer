@@ -20,14 +20,14 @@ module.exports = async function() {
         });
 
         return {
-            rank: Number(data[0]),
-            processor: data[1],
-            rating: Number(data[2]),
-            anTuTu: data[3] === '-' ? -1 : Number(data[3]),
-            geekBench: data[4],
-            cores: Number(data[5].split(' ')[0]),
-            clock: Number(data[6].split(' ')[0]),
-            brand: data[7]
+            'Rank': Number(data[0]),
+            'Processor': data[1],
+            'Rating': Number(data[2]),
+            'AnTuTu': data[3] === '-' ? -1 : Number(data[3]),
+            'GeekBench': data[4],
+            'Cores': Number(data[5].split(' ')[0]),
+            'Clock': Number(data[6].split(' ')[0]),
+            'Brand': data[7]
         };
     });
 

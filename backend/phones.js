@@ -45,20 +45,21 @@ async function getPhoneSpecs(phoneUrl) {
 
     const phone = {};
 
-    phone.name = $('h1.specs-phone-name-title').text().trim();
+    phone['Name'] = $('h1.specs-phone-name-title').text().trim();
+    phone['Photo'] = $('.specs-photo-main img').attr('src');
 
     const sections = $('#specs-list table');
     sections.each(function() {
         const section = $(this);
         const rows = section.find('tbody tr');
         
-        const sectionName = toCamelCase(rows.find('th').text().trim().toLowerCase());
+        const sectionName = rows.find('th').text().trim();
         phone[sectionName] = {};
         
         let prevTitle = '';
         rows.each(function() {
             const cells = $(this);
-            const title = toCamelCase(cells.find('td.ttl').text().trim().toLowerCase());
+            const title = cells.find('td.ttl').text().trim();
             const info = cells.find('td.nfo').text().trim();
 
             if(!info) return;
@@ -70,9 +71,9 @@ async function getPhoneSpecs(phoneUrl) {
         });
     });
 
-    const processorRank = await getProcessorRank(phone.platform.chipset);
-    phone.platform = {
-        ...phone.platform,
+    const processorRank = await getProcessorRank(phone['Platform']['Chipset']);
+    phone['Platform'] = {
+        ...phone['Platform'],
         ...processorRank
     };
 
@@ -81,55 +82,43 @@ async function getPhoneSpecs(phoneUrl) {
 
 async function getProcessorRank(chipset) {
     const processors = await getProcessors();
-    const cpuName = chipset.split('(')[0].trim();
-    return processors.find(processor => processor.processor === cpuName);
-}
-
-function toCamelCase(text) {
-    if(!text.includes(' ')) return text;
-    let camel = '';
-
-    text.split(' ').forEach((word, i) => {
-        if(i === 0) return camel += word;
-        camel += word[0].toUpperCase() + word.substring(1);
-    });
-
-    return camel;
+    const cpuName = chipset.split('(')[0].trim().toLowerCase();
+    return processors.find(processor => processor['Processor'].toLowerCase() === cpuName);
 }
 
 async function getCorePhoneSpecs(url) {
     const specs = await getPhoneSpecs(url);
 
-    return {
-        name: specs.name,
-        launchStatus: specs.launch.status,
-        body: {
-            weight: specs.body.weight,
-            build: specs.body.build
-        },
-        display: specs.display,
-        processor: {
-            os: specs.platform.os,
-            chipset: specs.platform.chipset,
-            rank: specs.platform.rank,
-            rating: specs.platform.rating,
-            cores: specs.platform.cores,
-            clock: specs.platform.clock,
-            gpu: specs.platform.gpu
-        },
-        memory: specs.memory.internal,
-        mainCamera: specs.mainCamera,
-        selfieCamera: specs.selfieCamera,
-        headphoneJack: specs.sound['3.5mmJack'],
-        comms: {
-            nfc: specs.comms.nfc,
-            usb: specs.comms.usb
-        },
-        sensors: specs.features.sensors,
-        battery: specs.battery,
-        price: specs.misc.price,
-        batteryLife: specs.tests.batteryLife
-    };
+    specs['Network'] = undefined;
+    
+    specs['Launch']['Announced'] = undefined;
+    
+    specs['Body']['Dimensions'] = undefined;
+    specs['Body']['SIM'] = undefined;
+
+    // specs['Platform']['Chipset'] = undefined;
+    specs['Platform']['CPU'] = undefined;
+    specs['Platform']['AnTuTu'] = undefined;
+    specs['Platform']['GeekBench'] = undefined;
+    specs['Platform']['Brand'] = undefined;
+
+    specs['Memory']['Card slot'] = undefined;
+
+    specs['Comms']['WLAN'] = undefined;
+    specs['Comms']['Bluetooth'] = undefined;
+    specs['Comms']['GPS'] = undefined;
+    specs['Comms']['Radio'] = undefined;
+
+    specs['Misc']['Colors'] = undefined;
+    specs['Misc']['Models'] = undefined;
+
+    specs['Tests']['Performance'] = undefined;
+    specs['Tests']['Display'] = undefined;
+    specs['Tests']['Camera'] = undefined;
+    specs['Tests']['Loudspeaker'] = undefined;
+    specs['Tests']['Audio quality'] = undefined;
+
+    return specs;
 }
 
 module.exports = {
