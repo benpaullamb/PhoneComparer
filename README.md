@@ -1,1 +1,2 @@
-# phone-comparer
+# PhoneComparer
+Needs front end design
